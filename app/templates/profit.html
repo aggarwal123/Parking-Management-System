@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Parking Lot Profit Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 350px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .button {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #output {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .flash-messages {
+            text-align: center;
+            margin: 15px;
+        }
+
+        .flash-message {
+            color: rgb(164, 0, 0);
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Profit</h1>
+        <label for="date"><strong>Date</strong></label>
+        <form action="#" method="post">
+            <input type="text" id="date" name="date" required pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD">
+            <button class="button" type="submit" name="date">Submit</button>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash-messages">
+                {% for msg in messages %}
+                <p class="flash-message">{{ msg }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <button class="button" id="homeButton">Home</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("homeButton").addEventListener("click", function () {
+            window.location.href = "/";
+        });
+    </script>
+</body>
+
+</html>

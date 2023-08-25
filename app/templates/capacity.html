@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Lot Capacity Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Set a consistent box size for inputs */
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .flash-messages {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .flash-message {
+            color: rgb(164, 0, 0);
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Capacity Management</h1>
+        <form action="{{ url_for('capacity') }}" method="post">
+            <label for="category"><strong>Vehicle Category: </strong></label>
+            <select id="category" name="category" required>
+                <option value="large">Large</option>
+                <option value="medium">Medium</option>
+                <option value="small">Small</option>
+            </select>
+
+            <label for="capacity"> <strong>New Capacity: </strong></label>
+            <input type="number" id="capacity" name="capacity" placeholder="Enter New Capacity" min="0" required>
+
+            <label for="available"> <strong> Available Space: </strong></label>
+            <input type="number" id="available" name="available" placeholder="Current Available Capacity" min="0"
+                required>
+
+            <!-- Larger and equal-sized buttons -->
+            <button class="button" id="changeCapacityButton">Change Capacity</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for msg in messages %}
+            <p class="flash-message">{{ msg }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <button class="button" id="homeButton">Home</button>
+    </div>
+
+    <script>
+        document.getElementById("homeButton").addEventListener("click", function () {
+            window.location.href = "/";
+        });
+    </script>
+
+</body>
+
+</html>
