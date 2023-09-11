@@ -1,6 +1,6 @@
 ﻿from flask import render_template, flash, request
 from app.main import app, db
-from app.models import Ticket, Vehicle, ParkingLot, Profit
+from app.models import Ticket, ParkingLot, Profit
 from datetime import datetime
 
 
@@ -35,14 +35,13 @@ def exit_vehicle():
             ticket_id = request.form["ticket_id"]
             ticket = Ticket.query.filter(Ticket.id==ticket_id).first() # GETTING TICKET FROM THE DATABASE
             if ticket:
-                vehicle = Vehicle.query.filter(Vehicle.number_plate == ticket.number_plate).first()
                 id = ticket.id
                 exit_time = datetime.now()
                 exit_date = exit_time.date()
                 entry_time = ticket.entry_time
                 entry_date = entry_time.date()
                 number_plate = ticket.number_plate
-                category = int(vehicle.category)
+                category = ticket.category
                 price, duration = price_calculation(category, ticket.entry_time, exit_time)
                 total_time = f"{int(duration)} Hrs and {round((duration-int(duration))*60, 2)} mins"
                 # UPDATING SPACE AVAILABLE
@@ -55,7 +54,6 @@ def exit_vehicle():
                 else:
                     date_profit = Profit(date=exit_date, profit=price)
                     db.session.add(date_profit)
-                db.session.delete(vehicle)
                 db.session.delete(ticket)
                 db.session.commit()
                 if category==0:

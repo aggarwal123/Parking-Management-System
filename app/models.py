@@ -1,15 +1,9 @@
 ﻿from app.main import db
 
-class Vehicle(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    number_plate = db.Column(db.String(15), nullable=False, unique=True)
-    category = db.Column(db.String(20), nullable=False)
-    tickets = db.relationship('Ticket', backref='vehicle', lazy=True)
-
 class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    number_plate = db.Column(db.String(15), db.ForeignKey('vehicle.number_plate'), nullable=False)
-    category = db.Column(db.String(20), nullable=False)
+    number_plate = db.Column(db.String(15), nullable=False)
+    category = db.Column(db.Integer, nullable=False)
     entry_time = db.Column(db.DateTime, nullable=False)
 
 class ParkingLot(db.Model):

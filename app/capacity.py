@@ -14,6 +14,9 @@ def capacity():
                 cate=1
             elif category == "large":
                 cate=2
+            if available>capacity:
+                flash("Available Capacity cannot exceed Total Capacity")
+                return render_template("capacity.html")
             parking = ParkingLot.query.filter_by(id=cate).first()
             parking.total_capacity = capacity
             parking.available_space = available
